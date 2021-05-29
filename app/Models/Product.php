@@ -58,10 +58,6 @@ class Product extends Model
         return $is_active ? 'فعال' : 'غیر فعال';
     }
 
-//    public function scopeFilter($query)
-//    {
-//
-//    }
 
     public function tags()
     {
