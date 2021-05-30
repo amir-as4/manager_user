@@ -2791,7 +2791,7 @@ footer.main-footer .copyright p {
 
 .price-value-wrapper {
     width: 100%;
-    color: #000;
+    color: #535353;
     letter-spacing: 0;
     font-weight: 700;
     font-size: 20px;
@@ -2815,6 +2815,7 @@ footer.main-footer .copyright p {
 .price-value-wrapper .price-currency {
     font-weight: 400;
     font-size: 14px;
+    margin-right: 5px;
 }
 
 .product-seller-details {
@@ -3621,7 +3622,7 @@ main.single-product .product .gallery-items li img {
     height: 28px;
     color: #fff;
     padding: 0 10px;
-    border-radius: 0 19px 19px 19px;
+    border-radius: 19px 19px 19px 19px;
     letter-spacing: .5px;
     position: relative;
     display: inline-block;
@@ -6678,5 +6679,15 @@ main.profile-user-page .responsive-profile-menu .dropdown-menu a i {
 }
 .random-font-child{
     font-size: 12px;
+}
+.fontSize{
+    font-size: 26px;
+    color: #ababab;
+}
+.expired{
+    display: block;
+    margin-left: 7px;
+    font-size: 14px;
+    color: #727272;
 }
 /* responsive */

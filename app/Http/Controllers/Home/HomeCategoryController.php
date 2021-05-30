@@ -12,13 +12,12 @@ class HomeCategoryController extends Controller
 {
     public function show(Request $request,Category $category)
     {
-        dd($request->all());
         $attributes=$category->attributes()->where('is_filter',1)->with('values')->get();
         $variation=$category->attributes()->where('is_variation',1)->with('variationValues')->first();
         $categoryBrands= $category->products()->where('is_active',1)->with('brand')->get();
-
-//        dd($attributes);
+        $products=$category->products()->filter()->get();
+//        dd($products);
         return view('home.categories.show',compact('category','attributes','variation',
-            'categoryBrands'));
+            'categoryBrands','products'));
     }
 }

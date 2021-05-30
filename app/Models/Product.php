@@ -58,6 +58,36 @@ class Product extends Model
         return $is_active ? 'فعال' : 'غیر فعال';
     }
 
+    public function scopeFilter($query)
+    {
+        if (request()->has('attribute')){
+            foreach (request()->attribute as $attribute){
+                $query->whereHas('attributes',function ($query) use ($attribute){
+                    foreach (explode('-',$attribute) as $index=>$item){
+                        if ($index==0){
+                            $query->where('value',$item);
+                        }else{
+                            $query->orWhere('value',$item);
+                        }
+                    }
+                });
+            }
+        }
+
+
+        if (request()->has('variation')){
+            $query->whereHas('variations',function ($query){
+                foreach (explode('-',request()->variation) as $index=>$variation){
+                    if ($index == 0){
+                        $query->where('value',$variation);
+                    }else{
+                        $query->orWhere('value',$variation);
+                    }
+                }
+            });
+        }
+        return $query;
+    }
 
     public function tags()
     {
