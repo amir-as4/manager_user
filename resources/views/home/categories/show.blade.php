@@ -4,13 +4,29 @@
 @endsection
 @section('script')
     <script>
+
+        $(document).ready(function () {
+            $(document).on("click", "#sort-by a", function (e) {
+
+                $('input#filter-sort-by').val($(this).attr('data-sort'))
+                var iiid = 0;
+                setInterval(function () {
+                    if (iiid == 0) {
+                        $('#filter-form').submit();
+                        iiid++;
+                    }
+                }, 10)
+                e.preventDefault()
+            });
+        });
+
         function filter() {
 
             let brand = $('.brand:checked').map(function () {
                 return this.value;
             }).get().join('-');
-            if (brand == "") {
-                $('#filter-brand').prop('disabled', true);
+            if (brand === "" || brand === null) {
+                $('#filter-brand').prop('disabled' ,brand);
             } else {
                 $('#filter-brand').val(brand);
             }
@@ -35,16 +51,42 @@
             } else {
                 $('#filter-variation').val(variation);
             }
+
             let search = $('#search-input').val();
             if (search == "") {
                 $('#filter-search').prop('disabled', true);
             } else {
                 $('#filter-search').val(search);
             }
+            //
+            // $(document).ready(function () {
+            //     $(document).on("click", "#sort-by a", function (e) {
+            //         $('input#filter-sort-by').val($(this).attr('data-sort'))
+            //         var iiid = 0;
+            //         setInterval(function () {
+            //             if (iiid == 0) {
+            //                 iiid++;
+            //             }
+            //         }, 10)
+            //         e.preventDefault()
+            //     });
+            // });
 
             $('#filter-form').submit();
-
         }
+
+        // $(document).ready(function () {
+        //     $(document).on("click", "#sort-by a", function (e) {
+        //         e.preventDefault();
+        //         let sortBy = $(this).attr("data-sort");
+        //         if (sortBy == "1") {
+        //             $('#filter-sort-by').prop('disabled', true);
+        //         } else {
+        //             $('#filter-sort-by').val(sortBy);
+        //         }
+        //         return filter();
+        //     });
+        // });
 
         $('#filter-form').on('submit', function (event) {
             event.preventDefault();
@@ -214,32 +256,28 @@
                     <div class="listing default">
                         <div class="listing-counter">۶,۱۸۸ کالا</div>
                         <div class="listing-header default">
-                            <ul class="listing-sort nav nav-tabs justify-content-center" role="tablist"
+                            <ul class="listing-sort nav nav-tabs justify-content-center"
                                 data-label="مرتب‌سازی بر اساس :">
-                                <li>
-                                    <a class="active " data-toggle="tab" href="#related" role="tab"
-                                       aria-expanded="false">مرتبط‌ترین</a>
+                                <li id="sort-by" class="d-flex justify-content-between">
+                                    @if(!request()->has('sortBy'))
+                                        <a class="active" href="javascript:void(0)" data-sort="1">مرتبط‌ترین</a>
+                                    @else
+                                        <a href="javascript:void(0)" data-sort="1">مرتبط‌ترین</a>
+                                    @endif
+                                    <a href="javascript:void(0)" data-sort="2"
+                                        {{ request()->has('sortBy') && request()->sortBy == 2 ?"class=active":"" }}>پربازدیدترین</a>
+                                    <a href="javascript:void(0)" data-sort="3"
+                                        {{ request()->has('sortBy') && request()->sortBy == 3 ?"class=active":"" }}>جدیدترین</a>
+                                    <a href="javascript:void(0)" data-sort="4"
+                                        {{ request()->has('sortBy') && request()->sortBy == 4 ?"class=active":"" }}>پرفروش&zwnj;ترین</a>
+                                    <a href="javascript:void(0)" data-sort="5"
+                                        {{ request()->has('sortBy') && request()->sortBy == 5 ?"class=active":"" }}>ارزان&zwnj;ترین</a>
+                                    <a href="javascript:void(0)" data-sort="6"
+                                        {{ request()->has('sortBy') && request()->sortBy == 6 ?"class=active":"" }}>گران&zwnj;ترین</a>
                                 </li>
-                                <li>
-                                    <a data-toggle="tab" href="#most-view" role="tab"
-                                       aria-expanded="false">پربازدیدترین</a>
-                                </li>
-                                <li>
-                                    <a data-toggle="tab" href="#new" role="tab" aria-expanded="true"
-                                       onchange="filter()">جدیدترین</a>
-                                </li>
-                                <li>
-                                    <a data-toggle="tab" href="#most-seller" role="tab"
-                                       aria-expanded="false" onchange="filter()">پرفروش‌ترین‌</a>
-                                </li>
-                                <li>
-                                    <a data-toggle="tab" href="#down-price" role="tab"
-                                       aria-expanded="false" onchange="filter()">ارزان‌ترین</a>
-                                </li>
-                                <li>
-                                    <a data-toggle="tab" href="#top-price" role="tab" onchange="filter()"
-                                       aria-expanded="false">گران‌ترین</a>
-                                </li>
+                                {{--                                <form id="filter-sort">--}}
+                                {{--                                    <input id="filter-sort-by" type="hidden" name="sortBy">--}}
+                                {{--                                </form>--}}
                             </ul>
                         </div>
                         <div class="tab-content default text-center">
@@ -275,7 +313,8 @@
                                                                     <div class="price-value">
                                                                         <div class="price-value-wrapper">
                                                                             @if($product->sale_check)
-                                                                                <div class="d-flex flex-row align-items-center">
+                                                                                <div
+                                                                                    class="d-flex flex-row align-items-center">
                                                                                     <del
                                                                                         class="expired">{{ number_format($product->sale_check->price) }}</del>
                                                                                     @foreach($product->variations->take(1) as $percentage)
@@ -301,6 +340,7 @@
                                                             </div>
                                                         @endif
                                                     </div>
+                                                </div>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -340,6 +380,8 @@
                     @endforeach
                     <input id="filter-variation" type="hidden" name="variation">
                     <input id="filter-search" type="hidden" name="search">
+                    <input id="filter-sort-by" type="hidden" name="sortBy">
+                    {{--                           value="@php echo isset($_GET['sortBy'])? $_GET['sortBy']:""; @endphp">--}}
                 </form>
             </div>
         </div>
