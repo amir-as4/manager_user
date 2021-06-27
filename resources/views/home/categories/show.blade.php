@@ -4,29 +4,13 @@
 @endsection
 @section('script')
     <script>
-
-        $(document).ready(function () {
-            $(document).on("click", "#sort-by a", function (e) {
-
-                $('input#filter-sort-by').val($(this).attr('data-sort'))
-                var iiid = 0;
-                setInterval(function () {
-                    if (iiid == 0) {
-                        $('#filter-form').submit();
-                        iiid++;
-                    }
-                }, 10)
-                e.preventDefault()
-            });
-        });
-
         function filter() {
 
             let brand = $('.brand:checked').map(function () {
                 return this.value;
             }).get().join('-');
-            if (brand === "" || brand === null) {
-                $('#filter-brand').prop('disabled' ,brand);
+            if (brand == "") {
+                $('#filter-brand').prop('disabled', brand);
             } else {
                 $('#filter-brand').val(brand);
             }
@@ -58,43 +42,41 @@
             } else {
                 $('#filter-search').val(search);
             }
-            //
-            // $(document).ready(function () {
-            //     $(document).on("click", "#sort-by a", function (e) {
-            //         $('input#filter-sort-by').val($(this).attr('data-sort'))
-            //         var iiid = 0;
-            //         setInterval(function () {
-            //             if (iiid == 0) {
-            //                 iiid++;
-            //             }
-            //         }, 10)
-            //         e.preventDefault()
-            //     });
-            // });
 
-            $('#filter-form').submit();
+            $('#filter-form'). submit();
         }
 
-        // $(document).ready(function () {
-        //     $(document).on("click", "#sort-by a", function (e) {
-        //         e.preventDefault();
-        //         let sortBy = $(this).attr("data-sort");
-        //         if (sortBy == "1") {
-        //             $('#filter-sort-by').prop('disabled', true);
-        //         } else {
-        //             $('#filter-sort-by').val(sortBy);
-        //         }
-        //         return filter();
-        //     });
-        // });
+        $(document).ready(function () {
+            $(document).on("click", "#sort-by a", function (e) {
+                e.preventDefault();
+                let sortBy = $(this).attr("data-sort");
+                if (sortBy == "1") {
+                    $('#filter-sort-by').prop('disabled', true);
+                } else {
+                    $('#filter-sort-by').val(sortBy);
+                }
+                $('#filter-form').submit();
+            });
+        });
 
         $('#filter-form').on('submit', function (event) {
             event.preventDefault();
             let currentUrl = '{{ url()->current() }}';
-            let url = currentUrl + '?' + decodeURIComponent($(this).serialize());
+            var query = $(this).serializeArray().filter(function (i) {
+                return i.value;
+            });
+            let url = currentUrl + '?' + decodeURIComponent($.param(query));
             let urlF = url.replace(/ /g, "_");
             $(location).attr('href', urlF);
         });
+
+        {{--$('#filter-form').on('submit', function (event) {--}}
+        {{--    event.preventDefault();--}}
+        {{--    let currentUrl = '{{ url()->current() }}';--}}
+        {{--    let url = currentUrl + '?' + decodeURIComponent($(this).serialize());--}}
+        {{--    let urlF = url.replace(/ /g, "_");--}}
+        {{--    $(location).attr('href', urlF);--}}
+        {{--});--}}
     </script>
 @endsection
 @section('content')
@@ -264,15 +246,15 @@
                                     @else
                                         <a href="javascript:void(0)" data-sort="1">مرتبط‌ترین</a>
                                     @endif
-                                    <a href="javascript:void(0)" data-sort="2"
+                                    <a href="javascript:void(0);" data-sort="2"
                                         {{ request()->has('sortBy') && request()->sortBy == 2 ?"class=active":"" }}>پربازدیدترین</a>
-                                    <a href="javascript:void(0)" data-sort="3"
+                                    <a href="javascript:void(0);" data-sort="3"
                                         {{ request()->has('sortBy') && request()->sortBy == 3 ?"class=active":"" }}>جدیدترین</a>
-                                    <a href="javascript:void(0)" data-sort="4"
+                                    <a href="javascript:void(0);" data-sort="4"
                                         {{ request()->has('sortBy') && request()->sortBy == 4 ?"class=active":"" }}>پرفروش&zwnj;ترین</a>
-                                    <a href="javascript:void(0)" data-sort="5"
+                                    <a href="javascript:void(0);" data-sort="5"
                                         {{ request()->has('sortBy') && request()->sortBy == 5 ?"class=active":"" }}>ارزان&zwnj;ترین</a>
-                                    <a href="javascript:void(0)" data-sort="6"
+                                    <a href="javascript:void(0);" data-sort="6"
                                         {{ request()->has('sortBy') && request()->sortBy == 6 ?"class=active":"" }}>گران&zwnj;ترین</a>
                                 </li>
                                 {{--                                <form id="filter-sort">--}}
