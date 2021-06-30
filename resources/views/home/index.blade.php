@@ -78,13 +78,13 @@
                                 @foreach($products->take(6) as $product)
                                     @if($product->random_product)
                                         <div class="item">
-                                            <a href="#">
+                                            <a href="{{ route('home.products.show',['product'=>$product->slug]) }}">
                                                 <img
                                                     src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH').$product->primary_image) }}"
                                                     class="w-100" alt="{{ $product->primary_image }}">
                                             </a>
                                             <h3 class="product-title">
-                                                <a href="#">{{ $product->name }} </a>
+                                                <a href="{{ route('home.products.show',['product'=>$product->slug]) }}">{{ $product->name }} </a>
                                             </h3>
                                             <div class="price">
                                                 @if($product->sale_check)
@@ -169,11 +169,10 @@
                             <div class="carousel-inner p-0 col-12 col-lg-9">
                                 <img class="amazing-title" src="{{ asset('images/home/amazing-title-01.png') }}" alt="">
                                 @foreach($products->take(9) as $product)
-
                                     <div class="carousel-item {{ $loop->first?'active':'' }}">
                                         <div class="row m-0">
                                             <div class="right-col col-5 d-flex align-items-center">
-                                                <a class="w-100 text-center" href="#">
+                                                <a class="w-100 text-center" href="{{ route('home.products.show',['product'=>$product->slug]) }}">
                                                     <img
                                                         src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH').$product->primary_image) }}"
                                                         class="img-fluid" alt="{{ $product->primary_image }}">
@@ -203,7 +202,7 @@
                                                     @endif
                                                 </div>
                                                 <h2 class="product-title">
-                                                    <a href="#">{{ $product->name }} </a>
+                                                    <a href="{{ route('home.products.show',['product'=>$product->slug]) }}">{{ $product->name }} </a>
                                                 </h2>
                                                 <ul class="list-group">
                                                     @foreach($product->attributes()->with('attribute')->get() as $attribute)
@@ -261,18 +260,18 @@
                                         <h3 class="card-title">
                                             <span>{{ $mobileProduct->name }}</span>
                                         </h3>
-                                        <a href="#" class="view-all">مشاهده همه</a>
+                                        <a href="{{ route('home.categories.show',['category'=>$mobileProduct->slug]) }}" class="view-all">مشاهده همه</a>
                                     </header>
                                     <div class="product-carousel owl-carousel owl-theme">
                                         @foreach($mobileProduct->products as $mobile)
                                             <div class="item">
-                                                <a href="#">
+                                                <a href="{{ route('home.products.show',['product'=>$mobile->slug]) }}">
                                                     <img
                                                         src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH').$mobile->primary_image) }}"
                                                         class="img-fluid" alt="{{ $mobile->primary_image }}">
                                                 </a>
                                                 <h2 class="post-title">
-                                                    <a href="#">{{ $mobile->name }}</a>
+                                                    <a href="{{ route('home.products.show',['product'=>$mobile->slug]) }}">{{ $mobile->name }}</a>
                                                 </h2>
                                                 <div class="price">
                                                     @if($mobile->quantity_check)
@@ -308,18 +307,18 @@
                                         <h3 class="card-title">
                                             <span>{{ $computerProduct->name }}</span>
                                         </h3>
-                                        <a href="#" class="view-all">مشاهده همه</a>
+                                        <a href="{{ route('home.categories.show',['category'=>$computerProduct->slug]) }}" class="view-all">مشاهده همه</a>
                                     </header>
                                     <div class="product-carousel owl-carousel owl-theme">
                                         @foreach($computerProduct->products as $computer)
                                             <div class="item">
-                                                <a href="#">
+                                                <a href="{{ route('home.products.show',['product'=>$computer->slug]) }}">
                                                     <img
                                                         src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH').$computer->primary_image) }}"
                                                         class="img-fluid" alt="{{ $computer->primary_image }}">
                                                 </a>
                                                 <h2 class="post-title">
-                                                    <a href="#">{{ $computer->name }}</a>
+                                                    <a href="{{ route('home.products.show',['product'=>$computer->slug]) }}">{{ $computer->name }}</a>
                                                 </h2>
                                                 <div class="price">
                                                     @if($computer->quantity_check)
@@ -374,18 +373,18 @@
                                         <h3 class="card-title">
                                             <span>{{ $bookProduct->name }}</span>
                                         </h3>
-                                        <a href="#" class="view-all">مشاهده همه</a>
+                                        <a href="{{ route('home.categories.show',['category'=>$bookProduct->slug]) }}" class="view-all">مشاهده همه</a>
                                     </header>
                                     <div class="product-carousel owl-carousel owl-theme">
                                         @foreach($bookProduct->products as $book)
                                             <div class="item">
-                                                <a href="#">
+                                                <a href="{{ route('home.products.show',['product'=>$book->slug]) }}">
                                                     <img
                                                         src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH').$book->primary_image) }}"
                                                         class="img-fluid" alt="{{ $book->primary_image }}">
                                                 </a>
                                                 <h2 class="post-title">
-                                                    <a href="#">{{ $book->name }}</a>
+                                                    <a href="{{ route('home.products.show',['product',$book->slug]) }}">{{ $book->name }}</a>
                                                 </h2>
                                                 <div class="price">
                                                     @if($book->quantity_check)
@@ -421,18 +420,18 @@
                                         <h3 class="card-title">
                                             <span>{{ $handmadeProduct->name }}</span>
                                         </h3>
-                                        <a href="#" class="view-all">مشاهده همه</a>
+                                        <a href="{{ route('home.categories.show',['category'=>$handmadeProduct->slug]) }}" class="view-all">مشاهده همه</a>
                                     </header>
                                     <div class="product-carousel owl-carousel owl-theme">
                                         @foreach($handmadeProduct->products as $handmade)
                                             <div class="item">
-                                                <a href="#">
+                                                <a href="{{ route('home.products.show',['product'=>$handmade->slug]) }}">
                                                     <img
                                                         src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH').$handmade->primary_image) }}"
                                                         class="img-fluid" alt="{{ $handmade->primary_image }}">
                                                 </a>
                                                 <h2 class="post-title">
-                                                    <a href="#">{{ $handmade->name }}</a>
+                                                    <a href="{{ route('home.products.show',['product'=>$handmade->slug]) }}">{{ $handmade->name }}</a>
                                                 </h2>
                                                 <div class="price">
                                                     @if($handmade->quantity_check)
@@ -487,19 +486,19 @@
                                         <h3 class="card-title">
                                             <span>{{ $homeAppliancesProduct->name }}</span>
                                         </h3>
-                                        <a href="#" class="view-all">مشاهده همه</a>
+                                        <a href="{{ route('home.categories.show',['category'=>$homeAppliancesProduct->slug]) }}" class="view-all">مشاهده همه</a>
                                     </header>
                                     <div class="product-carousel owl-carousel ">
                                         @foreach($homeAppliancesProduct->products as $homeAppliances)
                                             <div class="item">
-                                                <a href="#">
+                                                <a href="{{ route('home.products.show',['product'=>$homeAppliances->slug]) }}">
                                                     <img
                                                         src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH').$homeAppliances->primary_image) }}"
                                                         class="img-fluid"
                                                         alt="{{ $homeAppliances->primary_image }}">
                                                 </a>
                                                 <h2 class="post-title">
-                                                    <a href="#">{{ $homeAppliances->name }}</a>
+                                                    <a href="{{ route('home.products.show',['product'=>$homeAppliances->slug]) }}">{{ $homeAppliances->name }}</a>
                                                 </h2>
                                                 <div class="price">
                                                     @if($homeAppliances->quantity_check)

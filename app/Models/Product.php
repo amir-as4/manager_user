@@ -14,7 +14,7 @@ class Product extends Model
 
     protected $table = "products";
     protected $guarded = [];
-    protected $appends = ['quantity_check', 'sale_check', 'price_check','random_product'];
+    protected $appends = ['quantity_check', 'sale_check', 'price_check', 'random_product'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -60,14 +60,14 @@ class Product extends Model
 
     public function scopeFilter($query)
     {
-        if (request()->has('attribute')){
-            foreach (request()->attribute as $attribute){
-                $query->whereHas('attributes',function ($query) use ($attribute){
-                    foreach (explode('-',$attribute) as $index=>$item){
-                        if ($index==0){
-                            $query->where('value',$item);
-                        }else{
-                            $query->orWhere('value',$item);
+        if (request()->has('attribute')) {
+            foreach (request()->attribute as $attribute) {
+                $query->whereHas('attributes', function ($query) use ($attribute) {
+                    foreach (explode('-', $attribute) as $index => $item) {
+                        if ($index == 0) {
+                            $query->where('value', $item);
+                        } else {
+                            $query->orWhere('value', $item);
                         }
                     }
                 });
@@ -75,16 +75,47 @@ class Product extends Model
         }
 
 
-        if (request()->has('variation')){
-            $query->whereHas('variations',function ($query){
-                foreach (explode('-',request()->variation) as $index=>$variation){
-                    if ($index == 0){
-                        $query->where('value',$variation);
-                    }else{
-                        $query->orWhere('value',$variation);
+        if (request()->has('variation')) {
+            $query->whereHas('variations', function ($query) {
+                foreach (explode('-', request()->variation) as $index => $variation) {
+                    if ($index == 0) {
+                        $query->where('value', $variation);
+                    } else {
+                        $query->orWhere('value', $variation);
                     }
                 }
             });
+        }
+
+        if (request()->has('sortBy')) {
+            $sortBy = request()->sortBy;
+            switch ($sortBy) {
+                case 2 :
+                    break;
+                case 3 :
+                    $query->latest();
+                    break;
+                case 4 :
+                    break;
+                case 5 :
+                    $query->orderBy(ProductVariation::select('price')->whereColumn('product_variations.product_id','products.id')->orderBy('sale_price','desc')->take(1));
+                    break;
+                case 6 :
+                    $query->orderByDesc(ProductVariation::select('price')->whereColumn('product_variations.product_id', 'products.id')->orderBy('sale_price','desc')->take(1));
+                    break;
+                default:
+                    $query;
+                    break;
+            }
+        }
+        return $query;
+    }
+
+    public function scopeSearch($query)
+    {
+        $keyword=request()->search;
+        if (request()->has('search') && trim($keyword)!=''){
+            $query->where('name','LIKE','%'.trim($keyword).'%');
         }
         return $query;
     }

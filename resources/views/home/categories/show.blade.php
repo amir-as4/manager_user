@@ -5,7 +5,6 @@
 @section('script')
     <script>
         function filter() {
-
             let brand = $('.brand:checked').map(function () {
                 return this.value;
             }).get().join('-');
@@ -42,21 +41,20 @@
             } else {
                 $('#filter-search').val(search);
             }
-
-            $('#filter-form'). submit();
+            let sortBy = $("#sort-by a.active").attr("data-sort");
+            if (sortBy == "1") {
+                $('#filter-sort-by').prop('disabled', true);
+            } else {
+                $('#filter-sort-by').val(sortBy);
+            }
+            $('#filter-form').submit();
         }
 
-        $(document).ready(function () {
-            $(document).on("click", "#sort-by a", function (e) {
-                e.preventDefault();
-                let sortBy = $(this).attr("data-sort");
-                if (sortBy == "1") {
-                    $('#filter-sort-by').prop('disabled', true);
-                } else {
-                    $('#filter-sort-by').val(sortBy);
-                }
-                $('#filter-form').submit();
-            });
+        $('#sort-by a').click(function(e) {
+            e.preventDefault();
+            $('#sort-by a').removeClass('active');
+            $(this).addClass('active');
+            filter();
         });
 
         $('#filter-form').on('submit', function (event) {
@@ -69,14 +67,6 @@
             let urlF = url.replace(/ /g, "_");
             $(location).attr('href', urlF);
         });
-
-        {{--$('#filter-form').on('submit', function (event) {--}}
-        {{--    event.preventDefault();--}}
-        {{--    let currentUrl = '{{ url()->current() }}';--}}
-        {{--    let url = currentUrl + '?' + decodeURIComponent($(this).serialize());--}}
-        {{--    let urlF = url.replace(/ /g, "_");--}}
-        {{--    $(location).attr('href', urlF);--}}
-        {{--});--}}
     </script>
 @endsection
 @section('content')
@@ -225,18 +215,21 @@
 
                 </aside>
                 <div class="col-12 col-sm-12 col-md-8 col-lg-9 order-2">
+
                     <div class="breadcrumb-section default">
                         <ul class="breadcrumb-list">
+
                             <li>
                                 <a href="#">
                                     <span>فروشگاه اینترنتی تاپ کالا</span>
                                 </a>
                             </li>
-                            <li><span>جستجوی موبایل</span></li>
+                            <li><span>{{ $category->parent->name }}</span></li>
+                            <li><span>{{ $category->name }}</span></li>
                         </ul>
                     </div>
                     <div class="listing default">
-                        <div class="listing-counter">۶,۱۸۸ کالا</div>
+                        <div class="listing-counter">{{ $category->products()->count() }} کالا</div>
                         <div class="listing-header default">
                             <ul class="listing-sort nav nav-tabs justify-content-center"
                                 data-label="مرتب‌سازی بر اساس :">
@@ -257,9 +250,6 @@
                                     <a href="javascript:void(0);" data-sort="6"
                                         {{ request()->has('sortBy') && request()->sortBy == 6 ?"class=active":"" }}>گران&zwnj;ترین</a>
                                 </li>
-                                {{--                                <form id="filter-sort">--}}
-                                {{--                                    <input id="filter-sort-by" type="hidden" name="sortBy">--}}
-                                {{--                                </form>--}}
                             </ul>
                         </div>
                         <div class="tab-content default text-center">
@@ -276,7 +266,7 @@
                                                             </span>تاپ کالا</span>
                                                         <span class="product-seller-details-badge-container"></span>
                                                     </div>
-                                                    <a class="product-box-img" href="#">
+                                                    <a class="product-box-img" href="{{ route('home.products.show',['product'=>$product->slug]) }}">
                                                         <img
                                                             src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH').$product->primary_image) }}"
                                                             alt="{{ $product->primary_image }}">
@@ -284,7 +274,7 @@
                                                     <div class="product-box-content">
                                                         <div class="product-box-content-row">
                                                             <div class="product-box-title">
-                                                                <a href="#">
+                                                                <a href="{{ route('home.products.show',['product'=>$product->slug]) }}">
                                                                     {{ $product->name }}
                                                                 </a>
                                                             </div>
@@ -330,27 +320,7 @@
                             </div>
                         </div>
                         <div class="pager default text-center">
-                            <ul class="pager-items">
-                                <li>
-                                    <a class="pager-item is-active" href="#">۱</a>
-                                </li>
-                                <li>
-                                    <a class="pager-item" href="#">۲</a>
-                                </li>
-                                <li>
-                                    <a class="pager-item" href="#">۳</a>
-                                </li>
-                                <li>
-                                    <a class="pager-item" href="#">۴</a>
-                                </li>
-                                <li>
-                                    <a class="pager-item" href="#">۵</a>
-                                </li>
-                                <line class="pager-items--partition"></line>
-                                <li>
-                                    <a class="pager-next"></a>
-                                </li>
-                            </ul>
+                            {{ $products->withQueryString()->links() }}
                         </div>
                     </div>
                 </div>
@@ -363,7 +333,6 @@
                     <input id="filter-variation" type="hidden" name="variation">
                     <input id="filter-search" type="hidden" name="search">
                     <input id="filter-sort-by" type="hidden" name="sortBy">
-                    {{--                           value="@php echo isset($_GET['sortBy'])? $_GET['sortBy']:""; @endphp">--}}
                 </form>
             </div>
         </div>

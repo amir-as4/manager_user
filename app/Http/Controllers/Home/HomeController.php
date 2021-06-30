@@ -26,7 +26,6 @@ class HomeController extends Controller
         $bookProducts=Category::where('name','کودکان')->with('products')->get();
         $handmadeProducts=Category::where('name','محصولات دست ساز')->with('products')->get();
         $homeAppliancesProducts=Category::where('name','لوازم برقی خانگی')->with('products')->get();
-//        dd($homeAppliancesProducts);
         return view('home.index',compact('topSliders','products','fixSliders', 'indexTopBanners',
             'sidebarTopSliders', 'sidebarBottomBanners','indexMiddleBanners','indexBottomBanners','brandBanners',
             'mobileProducts','computerProducts','bookProducts','handmadeProducts','homeAppliancesProducts'));
