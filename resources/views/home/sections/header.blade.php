@@ -90,12 +90,15 @@
                             @foreach($parentCategory->children as $childCategory)
                                 <li class="list-item list-item-has-children">
                                     <i class="now-ui-icons arrows-1_minimal-left"></i>
-                                    <a class="main-list-item nav-link" href="{{ route('home.categories.show',['category'=>$childCategory->slug]) }}">{{ $childCategory->name }}</a>
+                                    <a class="main-list-item nav-link"
+                                       href="{{ route('home.categories.show',['category'=>$childCategory->slug]) }}">
+                                        {{ $childCategory->name }}</a>
                                     <ul class="sub-menu nav">
                                         @foreach($childCategory->products as $product)
                                             @if($product->category_id == $childCategory->id )
                                                 <li class="list-item">
-                                                    <a class="nav-link" href="{{ route('home.categories.show',['category'=>$childCategory->slug]) }}">{{ $product->name }}</a>
+                                                    <a class="nav-link"
+                                                       href="{{ route('home.products.show',['product'=>$product->slug]) }}">{{ $product->name }}</a>
                                                 </li>
                                             @endif
                                         @endforeach

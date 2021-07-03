@@ -1,9 +1,7 @@
 @extends('admin.layouts.admin')
-
 @section('title')
     create products
 @endsection
-
 @section('script')
     <script>
         $('#brandSelect').selectpicker({

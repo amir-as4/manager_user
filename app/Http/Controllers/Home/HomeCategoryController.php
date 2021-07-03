@@ -15,8 +15,8 @@ class HomeCategoryController extends Controller
         $attributes=$category->attributes()->where('is_filter',1)->with('values')->get();
         $variation=$category->attributes()->where('is_variation',1)->with('variationValues')->first();
         $categoryBrands= $category->products()->where('is_active',1)->with('brand')->get();
-        $products=$category->products()->filter()->get();
-//        dd($products);
+        $products=$category->products()->filter()->search()->paginate(12);
+//        dd($categoryBrands);
         return view('home.categories.show',compact('category','attributes','variation',
             'categoryBrands','products'));
     }
