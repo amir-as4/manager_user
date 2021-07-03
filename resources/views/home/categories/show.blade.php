@@ -69,14 +69,6 @@
             let urlF = url.replace(/ /g, "_");
             $(location).attr('href', urlF);
         });
-
-        {{--$('#filter-form').on('submit', function (event) {--}}
-        {{--    event.preventDefault();--}}
-        {{--    let currentUrl = '{{ url()->current() }}';--}}
-        {{--    let url = currentUrl + '?' + decodeURIComponent($(this).serialize());--}}
-        {{--    let urlF = url.replace(/ /g, "_");--}}
-        {{--    $(location).attr('href', urlF);--}}
-        {{--});--}}
     </script>
 @endsection
 @section('content')
