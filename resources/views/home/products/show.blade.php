@@ -6,7 +6,25 @@
     <script>
         $('.radio input').on('change', function () {
             let variation = JSON.parse(this.value);
-            console.log(variation)
+            let variationPriceDiv = $('.variation-price');
+            variationPriceDiv.empty();
+            if (variation.is_sale) {
+                let spanSale = $('<div/>', {
+                    class: "price-value",
+                    text: toPersianNum(number_format(variation.sale_price)) + ' تومان'
+                });
+                let spanPrice = $('<del/>', {
+                    text: toPersianNum(number_format(variation.price)) + 'تومان '
+                });
+                variationPriceDiv.append(spanSale);
+                variationPriceDiv.append(spanPrice);
+            } else {
+                let spanPrice = $('<div/>', {
+                    class: 'price-value',
+                    text: toPersianNum(number_format(variation.price)) + ' تومان'
+                });
+                variationPriceDiv.append(spanPrice);
+            }
         });
     </script>
 @endsection
@@ -194,15 +212,16 @@
                                         <a href="#" class="btn-link-border">ناسا</a>
                                     </p>
                                 </div>
-                                <div class="price-product defualt">
+                                <div class="price-product defualt variation-price">
                                     @if($product->quantity_check)
                                         @if($product->sale_check)
                                             <div class="price-value">
-                                               <span>{{ number_format($product->sale_check->sale_price) }}<span
-                                                       class="price-currency">تومان</span></span>
+                                                {{ number_format($product->sale_check->sale_price) }}
+                                                تومان
                                             </div>
-                                            <del><span>{{ number_format($product->sale_check->price) }}<span>
-                                                        تومان</span></span></del>
+                                            <del>{{ number_format($product->sale_check->price) }}
+                                                تومان
+                                            </del>
                                             @foreach($product->variations->take(1) as $percentage)
                                                 @if($percentage->is_sale)
                                                     <div class="price-discount">
@@ -213,24 +232,13 @@
                                             @endforeach
                                         @else
                                             <div class="price-value">
-                                                <span>{{ number_format($product->price_check->price) }}
-                                                        <span class="price-currency">تومان</span></span>
-
+                                                {{ number_format($product->price_check->price) }}
+                                                تومان
                                             </div>
                                         @endif
                                     @else
-                                        <p class="finished-product">ناموجود</p>
+                                        <p class="btn btn-lg w-100">ناموجود</p>
                                     @endif
-                                    {{--                                    <div class="price-value">--}}
-                                    {{--                                        <span> ۱۵,۳۹۰,۰۰۰ </span>--}}
-                                    {{--                                        <span class="price-currency">تومان</span>--}}
-                                    {{--                                    </div>--}}
-                                    {{--                                    <div class="price-discount" data-title="تخفیف">--}}
-                                    {{--                                            <span>--}}
-                                    {{--                                                ۰--}}
-                                    {{--                                            </span>--}}
-                                    {{--                                        <span>%</span>--}}
-                                    {{--                                    </div>--}}
                                 </div>
                                 <div class="product-add default">
                                     <div class="parent-btn">
