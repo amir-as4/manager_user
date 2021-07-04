@@ -3624,7 +3624,7 @@ main.single-product .product .gallery-items li img {
     height: 28px;
     color: #fff;
     padding: 0 10px;
-    border-radius: 19px 19px 19px 19px;
+    border-radius: 0px 19px 19px 19px;
     letter-spacing: .5px;
     position: relative;
     display: inline-block;
@@ -3681,7 +3681,7 @@ main.single-product .product .gallery-items li img {
 
 .product-guaranteed:before {
     content: "\f0a3";
-    font-family: FontAwesome;
+    font-family: "Font Awesome 5 Duotone";
     font-size: 35px;
     color: #ff637d;
     position: absolute;
@@ -3692,7 +3692,7 @@ main.single-product .product .gallery-items li img {
 
 .product-guaranteed:after {
     content: "\ea22";
-    font-family: 'Nucleo Outline';
+    font-family: "Nucleo Outline";
     position: absolute;
     right: 50%;
     top: 27%;

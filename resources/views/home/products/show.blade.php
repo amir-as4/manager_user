@@ -9,8 +9,12 @@
             let variationPriceDiv = $('.variation-price');
             variationPriceDiv.empty();
             if (variation.is_sale) {
+                let percentage = $('<div/>', {
+                    class: 'price-discount',
+                    text: Math.round(((variation.price - variation.sale_price) / variation.price) * 100) + ' % '
+                });
                 let spanSale = $('<div/>', {
-                    class: "price-value",
+                    class: 'price-value',
                     text: toPersianNum(number_format(variation.sale_price)) + ' تومان'
                 });
                 let spanPrice = $('<del/>', {
@@ -18,6 +22,7 @@
                 });
                 variationPriceDiv.append(spanSale);
                 variationPriceDiv.append(spanPrice);
+                variationPriceDiv.append(percentage);
             } else {
                 let spanPrice = $('<div/>', {
                     class: 'price-value',
@@ -58,36 +63,22 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="product-gallery default">
-                                    <img class="zoom-img" id="img-product-zoom" src="assets/img/product/1335154.jpg"
-                                         data-zoom-image="assets/img/product/13351544.jpg" width="411"/>
+                                    <img href="#" class="zoom-img" id="img-product-zoom"
+                                         src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH').$product->primary_image) }}"
+                                         data-zoom-image="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH').$product->primary_image) }}"
+                                         width="411"/>
 
                                     <div id="gallery_01f" style="width:500px;float:left;">
                                         <ul class="gallery-items">
                                             <li>
-                                                <a href="#" class="elevatezoom-gallery active" data-update=""
-                                                   data-image="assets/img/product/2114766.jpg"
-                                                   data-zoom-image="assets/img/product/2114766.jpg">
-                                                    <img src="assets/img/product/2114766.jpg" width="100"/></a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="elevatezoom-gallery"
-                                                   data-image="assets/img/product/3694075.jpg"
-                                                   data-zoom-image="assets/img/product/3694075.jpg"><img
-                                                        src="assets/img/product/3694075.jpg" width="100"/></a>
-                                            </li>
-                                            <li>
-                                                <a href="tester" class="elevatezoom-gallery"
-                                                   data-image="assets/img/product/1335154.jpg"
-                                                   data-zoom-image="assets/img/product/1335154.jpg">
-                                                    <img src="assets/img/product/1335154.jpg" width="100"/>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="tester" class="elevatezoom-gallery"
-                                                   data-image="assets/img/product/110197298.jpg"
-                                                   data-zoom-image="assets/img/product/110197298.jpg"
-                                                   class="slide-content"><img src="assets/img/product/110197298.jpg"
-                                                                              height="68"/></a>
+                                                @foreach($product->images as $image)
+                                                    <a href="#" class="elevatezoom-gallery" data-update=""
+                                                       data-image="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH').$image->image) }}"
+                                                       data-zoom-image="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH').$image->image) }}">
+                                                        <img
+                                                            src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH').$image->image) }}"
+                                                            width="100"/></a>
+                                                @endforeach
                                             </li>
                                         </ul>
                                     </div>
@@ -187,11 +178,19 @@
                                 </div>
                                 <div class="product-variants default">
                                     @if($product->quantity_check)
+                                        @php
+                                            if ($product->sale_check){
+                                                $variationProductSelect=$product->sale_check;
+                                            }else{
+                                                $variationProductSelect=$product->price_check;
+                                                }
+                                        @endphp
                                         <span>{{ App\Models\Attribute::find($product->variations->first()->attribute_id)->name }}: </span>
                                         <div class="radio">
                                             @foreach($product->variations()->where('quantity','>',0)->get() as $variation)
                                                 <input type="radio" name="radio-1" id="radio-{{ $variation->id }}"
-                                                       value="{{ json_encode($variation->only(['id','quantity','price','is_sale','sale_price'])) }}">
+                                                       value="{{ json_encode($variation->only(['id','quantity','price','is_sale','sale_price'])) }}"
+                                                    {{ $variationProductSelect->id == $variation->id ?'checked':'' }}>
                                                 <label for="radio-{{ $variation->id }}">
                                                     {{ $variation->value }}
                                                 </label>
@@ -225,8 +224,8 @@
                                             @foreach($product->variations->take(1) as $percentage)
                                                 @if($percentage->is_sale)
                                                     <div class="price-discount">
-                                                        <span>{{ $percentage->percent_sale }}</span>
-                                                        <span>%</span>
+                                                        {{ $percentage->percent_sale }}
+                                                        %
                                                     </div>
                                                 @endif
                                             @endforeach
@@ -255,31 +254,10 @@
                                 </div>
                                 <div class="product-params default">
                                     <ul data-title="ویژگی‌های محصول">
-                                        <li>
-                                            <span>حافظه داخلی: </span>
-                                            <span> 256 گیگابایت </span>
-                                        </li>
-                                        <li>
-                                            <span>شبکه های ارتباطی: </span>
-                                            <span> 2G,3G,4G </span>
-                                        </li>
-                                        <li>
-                                            <span>رزولوشن عکس: </span>
-                                            <span> 12.0 مگاپیکسل</span>
-                                        </li>
-                                        <li>
-                                            <span>تعداد سیم کارت: </span>
-                                            <span> تک </span>
-                                        </li>
-                                        <li>
-                                            <span>ویژگی‌های خاص: </span>
-                                            <span> مقاوم در برابر آب
-                                                    مناسب عکاسی
-                                                    مناسب عکاسی سلفی
-                                                    مناسب بازی
-                                                    مجهز به حس‌گر تشخیص چهره
-                                                </span>
-                                        </li>
+                                        @foreach($product->attributes()->with('attribute')->get() as $attribute)
+                                            <li><span>{{ $attribute->attribute->name }}:</span>
+                                                <span>{{ $attribute->value }}</span></li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
@@ -322,7 +300,7 @@
                                             <article>
                                                 <h2 class="param-title">
                                                     نقد و بررسی تخصصی
-                                                    <span>گوشی موبایل اپل مدل iPhone X ظرفیت 256 گیگابایت</span>
+                                                    <span>{{ $product->name }}</span>
                                                 </h2>
                                                 <div class="parent-expert default">
                                                     <div class="content-expert">
@@ -587,7 +565,7 @@
                                             <article>
                                                 <h2 class="param-title">
                                                     مشخصات فنی
-                                                    <span>Apple iPhone X 256GB Mobile Phone</span>
+                                                    <span>{{ $product->name }}</span>
                                                 </h2>
                                                 <section>
                                                     <h3 class="params-title">مشخصات کلی</h3>

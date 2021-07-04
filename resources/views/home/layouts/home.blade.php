@@ -55,6 +55,8 @@
 <script src="{{ asset('js/home/plugins/owl.carousel.min.js') }}" type="text/javascript"></script>
 <!--  Jquery easing -->
 <script src="{{ asset('js/home/plugins/jquery.easing.1.3.min.js') }}" type="text/javascript"></script>
+<!--  Plugin ez-plus -->
+<script src="{{ asset('js/home/plugins/jquery.ez-plus.js') }}" type="text/javascript"></script>
 <!-- Main Js -->
 <script src="{{ asset('js/home/main.js') }}" type="text/javascript"></script>
 @yield('script')

@@ -95,12 +95,10 @@
                                         {{ $childCategory->name }}</a>
                                     <ul class="sub-menu nav">
                                         @foreach($childCategory->products as $product)
-                                            @if($product->category_id == $childCategory->id )
-                                                <li class="list-item">
-                                                    <a class="nav-link"
-                                                       href="{{ route('home.products.show',['product'=>$product->slug]) }}">{{ $product->name }}</a>
-                                                </li>
-                                            @endif
+                                            <li class="list-item">
+                                                <a class="nav-link"
+                                                   href="{{ route('home.categories.show',['category'=>$childCategory->slug]) }}">{{ App\Models\Brand::find($product->brand_id)->name }}</a>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </li>
