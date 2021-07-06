@@ -245,7 +245,7 @@ return [
         'max_percentage_amount'         =>'حداکثر مبلغ برای نوع درصد',
         'postal_code'                   =>'کد پستی',
         'city_id'                       =>'شهر',
-
+        'PLEASE WAIT BEFORE RETRYING.' => 'لطفاً قبل از تلاش مجدد منتظر بمانید.'
     ],
 
 ];

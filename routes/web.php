@@ -46,6 +46,14 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function (){
     Route::put('/products/{product}/category-update', [ProductController::class, 'updateCategory'])->name('products.category.update');
 });
 
-Route::get('/',[HomeController::class,'index'])->name('home.index');
-Route::get('/categories/{category:slug}',[HomeCategoryController::class,'show'])->name('home.categories.show');
-Route::get('products/{product:slug}',[HomeProductsController::class,'show'])->name('home.products.show');
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+//Route::get('/',[HomeController::class,'index'])->middleware( 'verified')->name('home.index');
+// با متد بالا وفعال کردن ارسال ایمیل تایید برای کاربران به کاربر اجازه ورود به صفحه اصلی را هم نمی هد
+Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');
+Route::get('products/{product:slug}', [HomeProductsController::class, 'show'])->name('home.products.show');
+Route::get('/test', function () {
+    auth()->logout();
+    return redirect('/');
+//    \Cart::clear();
+//    dd(\Cart::getContent());
+});
