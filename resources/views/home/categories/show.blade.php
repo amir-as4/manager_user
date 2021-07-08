@@ -64,8 +64,8 @@
                 return i.value;
             });
             let url = currentUrl + '?' + decodeURIComponent($.param(query));
-            let urlF = url.replace(/ /g, "_");
-            $(location).attr('href', urlF);
+            // let urlF = url.replace(/ /g, " ");
+            $(location).attr('href', url);
         });
     </script>
 @endsection

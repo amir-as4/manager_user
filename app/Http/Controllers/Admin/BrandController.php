@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class BrandController extends Controller
 {
@@ -43,7 +42,7 @@ class BrandController extends Controller
         ]);
 
         Brand::create([
-            'name' => $request->name,
+            'name' => $request->tirm(name),
             'is_active' => $request->is_active,
         ]);
 
@@ -85,7 +84,6 @@ class BrandController extends Controller
         $request->validate([
             'update' => 'required'
         ]);
-//        DB::table('brands')->where('id', $brand->id)->update(['name' => $request->update, 'is_active' => $request->active]);
         $brand->update([
             'name' => $request->update,
             'is_active' => $request->is_active,

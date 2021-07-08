@@ -42,6 +42,14 @@
                                 </div>
                                 @enderror
                             </div>
+                            <div class="form-account-agree">
+                                <label class="checkbox-form checkbox-primary">
+                                    <input name="remember" type="checkbox" id="agree"
+                                           value="{{ old('remember'?'checked':'') }}">
+                                    <span class="checkbox-check"></span>
+                                </label>
+                                <label for="agree">مرا به خاطر داشته باش</label>
+                            </div>
                             <div class="form-account-row form-account-submit">
                                 <div class="parent-btn">
                                     <button class="dk-btn dk-btn-info">
@@ -50,19 +58,20 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="form-account-agree">
-                                <label class="checkbox-form checkbox-primary">
-                                    <input type="checkbox" value="{{ old('remember'?'checked':'') }}" id="agree"
-                                           name="remember">
-                                    <span class="checkbox-check"></span>
-                                </label>
-                                <label for="agree">مرا به خاطر داشته باش</label>
+                            <div class="form-account-row form-account-submit">
+                                <div class="parent-btn">
+                                    <a href="{{ route('provider.login',['provider'=>'google']) }}" class="dk-btn"
+                                       style="background: #dd4b39">
+                                        ایجاد اکانت با گوگل
+                                        <i class="fab fa-google"></i>
+                                    </a>
+                                </div>
                             </div>
                         </form>
                     </div>
                     <div class="account-box-footer">
                         <span>کاربر جدید هستید؟</span>
-                        <a href="#" class="btn-link-border">ثبت‌نام در
+                        <a href="{{ route('register') }}" class="btn-link-border">ثبت‌نام در
                             تاپ کالا</a>
                     </div>
                 </div>

@@ -87,6 +87,18 @@ class Product extends Model
             });
         }
 
+        if (request()->has('brand')) {
+            $query->whereHas('brand', function ($query) {
+                foreach (explode('-', request()->brand) as $index => $brand) {
+                    if ($index == 0) {
+                        $query->where('name', $brand);
+                    } else {
+                        $query->orWhere('name', $brand);
+                    }
+                }
+            });
+        }
+
         if (request()->has('sortBy')) {
             $sortBy = request()->sortBy;
             switch ($sortBy) {

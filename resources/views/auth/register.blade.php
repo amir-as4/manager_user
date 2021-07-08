@@ -68,11 +68,20 @@
                                     </button>
                                 </div>
                             </div>
+                            <div class="form-account-row form-account-submit">
+                                <div class="parent-btn">
+                                    <a href="{{ route('provider.login',['provider'=>'google']) }}" class="dk-btn"
+                                       style="background: #dd4b39">
+                                        ایجاد اکانت با گوگل
+                                        <i class="fab fa-google"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="account-box-footer">
                         <span>قبلا در تاپ کالا ثبت‌نام کرده‌اید؟</span>
-                        <a href="#" class="btn-link-border">وارد شوید</a>
+                        <a href="{{ route('login') }}" class="btn-link-border">وارد شوید</a>
                     </div>
                 </div>
             </div>
