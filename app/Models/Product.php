@@ -125,11 +125,16 @@ class Product extends Model
 
     public function scopeSearch($query)
     {
-        $keyword=request()->search;
-        if (request()->has('search') && trim($keyword)!=''){
-            $query->where('name','LIKE','%'.trim($keyword).'%');
+        $keyword = request()->search;
+        if (request()->has('search') && trim($keyword) != '') {
+            $query->where('name', 'LIKE', '%' . trim($keyword) . '%');
         }
         return $query;
+    }
+
+    public function descriptions()
+    {
+        return $this->hasMany(MetaDescription::class);
     }
 
     public function tags()
