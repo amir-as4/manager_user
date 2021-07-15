@@ -43,11 +43,9 @@
                                     <a href="{{ route('home.categories.show',['category'=>$childCategory->slug]) }}">{{ $childCategory->name }}</a>
                                     <ul>
                                         @foreach($childCategory->products as $product)
-                                            @if($product->category_id == $childCategory->id )
-                                                <li>
-                                                    <a href="{{ route('home.categories.show',['category'=>$childCategory->slug]) }}">{{ $product->name }}</a>
-                                                </li>
-                                            @endif
+                                            <li>
+                                                <a href="{{ route('home.categories.show',['category'=>$childCategory->slug]) }}">{{ App\Models\Brand::find($product->brand_id)->name }}</a>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </li>

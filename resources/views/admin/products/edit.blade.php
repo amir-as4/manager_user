@@ -49,7 +49,6 @@
                 @csrf
                 @method('put')
                 <div class="form-row">
-
                     <div class="form-group col-md-3">
                         <label for="name">نام</label>
                         <input class="form-control" id="name" name="name" type="text" value="{{ $product->name }}">

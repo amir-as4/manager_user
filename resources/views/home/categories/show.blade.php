@@ -135,7 +135,7 @@
                                             <input id="brand-{{ $brand->id }}" class="brand"
                                                    type="checkbox" value="{{ $brand->brand->name }}"
                                                    onchange="filter()"
-                                                {{ (request()->has('brand') && in_array(str_replace(' ','_',$brand->brand->name) ,explode('-',request('brand')))) ? 'checked' :''}}>
+                                                {{ (request()->has('brand') && in_array(str_replace('%20','_',$brand->brand->name) ,explode('-',request('brand')))) ? 'checked' :''}}>
                                             <label for="brand-{{ $brand->id }}">
                                                 {{ $brand->brand->name }}
                                             </label>
@@ -163,7 +163,7 @@
                                                 <input type="checkbox" id="attribute-{{ $value->value }}"
                                                        class="attribute-{{ $attribute->id }}"
                                                        value="{{ $value->value }}" onchange="filter()"
-                                                    {{ (request()->has('attribute.'.$attribute->id) && in_array(str_replace(' ','_',$value->value) ,explode('-', request()->attribute[$attribute->id]))) ? 'checked':'' }}>
+                                                    {{ (request()->has('attribute.'.$attribute->id) && in_array(str_replace('%20','_',$value->value) ,explode('-', request()->attribute[$attribute->id]))) ? 'checked':'' }}>
                                                 <label for="attribute-{{ $value->value }}">
                                                     {{ $value->value }}
                                                 </label>
@@ -190,7 +190,7 @@
                                             <input class="variation" value="{{ $value->value }}"
                                                    type="checkbox" id="variation-{{ $value->value }}"
                                                    onchange="filter()"
-                                                {{ (request()->has('variation') && in_array(str_replace(' ','_',$value->value) ,explode('-',request('variation'))))?'checked':''}}>
+                                                {{ (request()->has('variation') && in_array(str_replace('%20','_',$value->value) ,explode('-',request('variation'))))?'checked':''}}>
                                             <label for="variation-{{ $value->value }}">
                                                 {{ $value->value }}
                                             </label>

@@ -247,7 +247,9 @@ return [
         'city_id' => 'شهر',
         'PLEASE WAIT BEFORE RETRYING.' => 'لطفاً قبل از تلاش مجدد منتظر بمانید.',
         'product_id' => 'انتخاب محصول',
-        'attribute' => 'ویژگی ها'
+        'attribute' => 'ویژگی ها',
+        'attribute_is_filter_ids' => 'ویژگی های قابل فیلتر',
+        'variation_id' => 'ویژگی متغیر'
     ],
 
 ];

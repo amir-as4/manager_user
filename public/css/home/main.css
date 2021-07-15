@@ -4065,6 +4065,7 @@ ul.gallery-options li:hover .tooltip-option {
 
 .tab-content .content-expert.active {
     height: auto;
+    margin-bottom: 12px;
 }
 
 .tab-content .accordion .card {

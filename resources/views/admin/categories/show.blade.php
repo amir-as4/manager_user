@@ -48,11 +48,12 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label>تاریخ ایجاد</label>
-                    <input class="form-control" type="text" value="{{ verta($category->created_at)->format("%B %d %Y") }}" disabled>
+                    <input class="form-control" type="text"
+                           value="{{ verta($category->created_at)->format("%B %d %Y") }}" disabled>
                 </div>
                 <div class="form-group col-md-12">
                     <label>توضیحات</label>
-                    <textarea class="form-control" disabled>{{ $category->description }}</textarea>
+                    <textarea class="form-control" rows="4" disabled>{{ $category->description }}</textarea>
                 </div>
                 <div class="col-md-12">
                     <hr>

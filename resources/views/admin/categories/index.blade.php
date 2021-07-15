@@ -50,12 +50,11 @@
                                     {{ $category->parent->name }}
                                 @endif
                             </th>
-
                             <th>
-                                    <span
-                                        class="{{ $category->getRawOriginal('is_active') ? 'text-success' : 'text-danger' }}">
+                              <span
+                                  class="{{ $category->getRawOriginal('is_active') ? 'text-success' : 'text-danger' }}">
                                         {{ $category->is_active }}
-                                    </span>
+                              </span>
                             </th>
                             <th>
                                 <a class="btn btn-sm btn-outline-success"
