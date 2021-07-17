@@ -4,12 +4,14 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ProductMetaDescriptionController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Home\HomeCategoryController;
+use App\Http\Controllers\Home\HomeCommentController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\HomeProductsController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +39,9 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
     Route::resource('/products', ProductController::class);
     Route::resource('/banners', BannerController::class);
     Route::resource('/descriptions', ProductMetaDescriptionController::class);
+    Route::resource('/comments', Commentcontroller::class);
+    Route::get('/comments/{comment}/change-approve', [CommentController::class, 'changeApprove'])->name('comments.change-approve');
+
     // get category attributes
     Route::get('/category-attributes/{category}', [CategoryController::class, 'getCategoryAttribute']);
     // Edit Product Image
@@ -54,6 +59,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 // با متد بالا وفعال کردن ارسال ایمیل تایید برای کاربران به کاربر اجازه ورود به صفحه اصلی را هم نمی هد
 Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');
 Route::get('products/{product:slug}', [HomeProductsController::class, 'show'])->name('home.products.show');
+Route::post('comments/{product}', [HomeCommentController::class, 'store'])->name('home.comments.store');
 Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
 Route::get('/login/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
 Route::get('/test', function () {

@@ -229,7 +229,7 @@
                         </ul>
                     </div>
                     <div class="listing default">
-                        <div class="listing-counter">{{ $category->products()->count() }} کالا</div>
+                        <div class="listing-counter">{{ $category->products()->filter()->search()->count() }} کالا</div>
                         <div class="listing-header default">
                             <ul class="listing-sort nav nav-tabs justify-content-center"
                                 data-label="مرتب‌سازی بر اساس :">

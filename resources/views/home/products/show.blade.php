@@ -272,7 +272,8 @@
                             <div class="box-tabs default">
                                 <ul class="nav" role="tablist">
                                     <li class="box-tabs-tab">
-                                        <a class="active" data-toggle="tab" href="#desc" role="tab"
+                                        <a class="{{ count($errors)>0?'':'active' }}" data-toggle="tab" href="#desc"
+                                           role="tab"
                                            aria-expanded="true">
                                             <i class="now-ui-icons objects_umbrella-13"></i> نقد و بررسی
                                         </a>
@@ -288,7 +289,8 @@
                                         </a>
                                     </li>
                                     <li class="box-tabs-tab">
-                                        <a data-toggle="tab" href="#questions" role="tab" aria-expanded="false">
+                                        <a class="{{ count($errors)>0?'active':'' }}" data-toggle="tab"
+                                           href="#questions" role="tab" aria-expanded="false">
                                             <i class="now-ui-icons ui-2_settings-90"></i> پرسش و پاسخ
                                         </a>
                                     </li>
@@ -296,7 +298,8 @@
                                 <div class="card-body default">
                                     <!-- Tab panes -->
                                     <div class="tab-content">
-                                        <div class="tab-pane active" id="desc" role="tabpanel" aria-expanded="true">
+                                        <div class="tab-pane {{ count($errors)>0?'':'active' }}" id="desc"
+                                             role="tabpanel" aria-expanded="true">
                                             <article>
                                                 @foreach($product->descriptions()->where('Specificationsandreview',1)->where('title','نقدوبررسی تخصصی')->get() as $specs)
                                                     <h2 class="param-title">
@@ -629,17 +632,22 @@
                                                 </div>
                                             </article>
                                         </div>
-                                        <div class="tab-pane form-comment" id="questions" role="tabpanel"
+                                        <div class="tab-pane form-comment {{ count($errors)>0?'active':'' }}"
+                                             id="questions" role="tabpanel"
                                              aria-expanded="false">
                                             <article>
-                                                <h2 class="param-title">
+                                                <h2 class="param-title" id="comments">
                                                     افزودن نظر
                                                     <span>نظر خود را در مورد محصول مطرح نمایید</span>
                                                 </h2>
-                                                <form action="" class="comment">
-                                                    <textarea class="form-control" placeholder="نظر"
+                                                @include('home.sections.errors')
+                                                <form
+                                                    action="{{ route('home.comments.store',['product'=>$product->id]) }}"
+                                                    method="post" class="comment">
+                                                    @csrf
+                                                    <textarea class="form-control" placeholder="نظر" name="text"
                                                               rows="5"></textarea>
-                                                    <button class="btn btn-default">ارسال نظر</button>
+                                                    <button type="submit" class="btn btn-default">ارسال نظر</button>
                                                 </form>
                                             </article>
                                         </div>

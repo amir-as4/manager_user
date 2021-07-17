@@ -59,6 +59,8 @@
 <script src="{{ asset('js/home/plugins/jquery.ez-plus.js') }}" type="text/javascript"></script>
 <!-- Main Js -->
 <script src="{{ asset('js/home/main.js') }}" type="text/javascript"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@include('sweet::alert')
 @yield('script')
 </html>
 
