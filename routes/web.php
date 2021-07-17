@@ -40,8 +40,8 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
     Route::resource('/banners', BannerController::class);
     Route::resource('/descriptions', ProductMetaDescriptionController::class);
     Route::resource('/comments', Commentcontroller::class);
+    // change approve comments
     Route::get('/comments/{comment}/change-approve', [CommentController::class, 'changeApprove'])->name('comments.change-approve');
-
     // get category attributes
     Route::get('/category-attributes/{category}', [CategoryController::class, 'getCategoryAttribute']);
     // Edit Product Image
