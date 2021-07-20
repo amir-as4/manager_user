@@ -466,168 +466,88 @@
                                             <article>
                                                 <h2 class="param-title">
                                                     نظرات کاربران
-                                                    <span>۱۲۳ نظر</span>
+                                                    <span>{{ $product->approvedComment()->count() }}</span>
                                                 </h2>
                                                 <div class="comments-area default">
                                                     <ol class="comment-list">
+                                                    @foreach($product->approvedComment as $comment)
                                                         <!-- #comment-## -->
-                                                        <li>
-                                                            <div class="comment-body">
-                                                                <div class="comment-author">
-                                                                    <img alt="" src="assets/img/default-avatar.png"
-                                                                         class="avatar"><cite class="fn">حسن</cite>
-                                                                    <span class="says">گفت:</span></div>
-
-                                                                <div class="commentmetadata"><a href="#">
-                                                                        اسفند ۲۰, ۱۳۹۶ در ۹:۴۱ ب.ظ</a></div>
-
-                                                                <p>لورم ایپسوم متن ساختگی</p>
-
-                                                                <div class="reply"><a class="comment-reply-link"
-                                                                                      href="#">پاسخ</a></div>
-                                                            </div>
-                                                        </li>
-                                                        <!-- #comment-## -->
-                                                        <li>
-                                                            <div class="comment-body">
-                                                                <div class="comment-author">
-                                                                    <img alt="" src="assets/img/default-avatar.png"
-                                                                         class="avatar"><cite class="fn">رضا</cite>
-                                                                    <span class="says">گفت:</span></div>
-
-                                                                <div class="commentmetadata"><a href="#">
-                                                                        اسفند ۲۰, ۱۳۹۶ در ۹:۴۲ ب.ظ</a></div>
-
-                                                                <p>
-                                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-                                                                    صنعت چاپ و با استفاده از طراحان گرافیک است.
-                                                                </p>
-
-                                                                <div class="reply"><a class="comment-reply-link"
-                                                                                      href="#">پاسخ</a></div>
-                                                            </div>
-                                                            <ol class="children">
-                                                                <li>
+                                                            <li>
+                                                                @if($comment->parent_id==null)
                                                                     <div class="comment-body">
                                                                         <div class="comment-author">
                                                                             <img alt=""
-                                                                                 src="assets/img/default-avatar.png"
-                                                                                 class="avatar"><cite class="fn">بهرامی
-                                                                                راد</cite> <span
-                                                                                class="says">گفت:</span></div>
+                                                                                 src="{{ $comment->user->avatar == null ? asset('images/default-avatar.png'):$comment->user->avatar }}"
+                                                                                 class="avatar"><cite
+                                                                                class="fn">{{ $comment->user->name == null ?'کاربر گرامی': $comment->user->name}}</cite>
+                                                                            <span class="says">گفت:</span></div>
 
                                                                         <div class="commentmetadata"><a href="#">
-                                                                                اسفند ۲۰, ۱۳۹۶ در ۹:۴۷ ب.ظ</a>
+                                                                                {{ verta($comment->created_at)->format("%B %d %Y H:i") }}</a>
                                                                         </div>
-
-                                                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی
-                                                                            نامفهوم از صنعت چاپ و با استفاده از
-                                                                            طراحان گرافیک است.
-                                                                            چاپگرها و متون بلکه روزنامه و مجله در
-                                                                            ستون و سطرآنچنان که لازم است و برای
-                                                                            شرایط فعلی تکنولوژی
-                                                                            مورد نیاز و کاربردهای متنوع با هدف بهبود
-                                                                            ابزارهای کاربردی می باشد.</p>
-
-                                                                        <div class="reply"><a class="comment-reply-link"
-                                                                                              href="#">پاسخ</a></div>
+                                                                        <p>{{ $comment->text }}</p>
+                                                                        <div class="reply">
+                                                                            <button class="btn btn-default"
+                                                                                    type="button"
+                                                                                    data-toggle="collapse"
+                                                                                    data-target="#collapse-{{ $comment->id }}">
+                                                                                پاسخ
+                                                                            </button>
+                                                                        </div>
                                                                     </div>
-                                                                    <ol class="children">
+                                                            @endif
+                                                            <!-- .children -->
+                                                                <ol class="children">
+                                                                    @foreach($comment->commentreplies()->where('approved',1)->get() as $reply)
                                                                         <li>
                                                                             <div class="comment-body">
                                                                                 <div class="comment-author">
                                                                                     <img alt=""
-                                                                                         src="assets/img/default-avatar.png"
-                                                                                         class="avatar"> <cite
-                                                                                        class="fn">محمد</cite>
-                                                                                    <span class="says">گفت:</span>
+                                                                                         src="{{ $reply->user->avatar == null ? asset('images/default-avatar.png'):$reply->user->avatar }}"
+                                                                                         class="avatar">
+                                                                                    <cite
+                                                                                        class="fn">{{ $reply->user->name == null ?'کاربر گرامی': $reply->user->name}}</cite>
+                                                                                    <span
+                                                                                        class="says">گفت:</span>
                                                                                 </div>
-
                                                                                 <div class="commentmetadata">
                                                                                     <a href="#">
-                                                                                        خرداد ۳۰, ۱۳۹۷ در ۸:۵۳
-                                                                                        ق.ظ</a></div>
-
-                                                                                <p>عالیه</p>
-
-                                                                                <div class="reply"><a
-                                                                                        class="comment-reply-link"
-                                                                                        href="#">پاسخ</a></div>
+                                                                                        {{ verta($reply->created_at)->format("%B %d %Y H:i") }}</a>
+                                                                                </div>
+                                                                                <p>{{ $reply->text }}</p>
                                                                             </div>
-                                                                            <ol class="children">
-                                                                                <li>
-                                                                                    <div class="comment-body">
-                                                                                        <div class="comment-author">
-                                                                                            <img alt=""
-                                                                                                 src="assets/img/default-avatar.png"
-                                                                                                 class="avatar">
-                                                                                            <cite
-                                                                                                class="fn">اشکان</cite>
-                                                                                            <span
-                                                                                                class="says">گفت:</span>
-                                                                                        </div>
-
-                                                                                        <div class="commentmetadata">
-                                                                                            <a href="#">
-                                                                                                خرداد ۳۰, ۱۳۹۷ در
-                                                                                                ۸:۵۳ ق.ظ</a></div>
-
-                                                                                        <p>لورم ایپسوم متن ساختگی با
-                                                                                            تولید سادگی نامفهوم از
-                                                                                            صنعت چاپ و با استفاده از
-                                                                                            طراحان
-                                                                                            گرافیک است. چاپگرها و
-                                                                                            متون بلکه روزنامه و مجله
-                                                                                            در ستون و سطرآنچنان که
-                                                                                            لازم است و
-                                                                                            برای شرایط فعلی تکنولوژی
-                                                                                            مورد نیاز و کاربردهای
-                                                                                            متنوع با هدف بهبود
-                                                                                            ابزارهای
-                                                                                            کاربردی می باشد.</p>
-
-                                                                                        <div class="reply"><a
-                                                                                                class="comment-reply-link"
-                                                                                                href="#">پاسخ</a>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <!-- #comment-## -->
-                                                                            </ol>
-                                                                            <!-- .children -->
                                                                         </li>
-                                                                        <!-- #comment-## -->
-                                                                    </ol>
-                                                                    <!-- .children -->
-                                                                </li>
+                                                                    @endforeach
+                                                                </ol>
+                                                                <!-- .children -->
                                                                 <!-- #comment-## -->
-                                                            </ol>
-                                                            <!-- .children -->
-                                                        </li>
-                                                        <!-- #comment-## -->
-                                                        <li>
-                                                            <div class="comment-body">
-                                                                <div class="comment-author">
-                                                                    <img alt="" src="assets/img/default-avatar.png"
-                                                                         class="avatar"> <cite class="fn">جلال</cite>
-                                                                    <span class="says">گفت:</span></div>
-
-                                                                <div class="commentmetadata"><a href="#">
-                                                                        اسفند ۲۱, ۱۳۹۶ در ۱:۱۰ ب.ظ</a></div>
-
-                                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-                                                                    صنعت چاپ و با استفاده از طراحان گرافیک است.
-                                                                    چاپگرها و
-                                                                    متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
-                                                                    لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-                                                                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می
-                                                                    باشد.</p>
-
-                                                                <div class="reply"><a class="comment-reply-link"
-                                                                                      href="">پاسخ</a></div>
-                                                            </div>
-                                                        </li>
-                                                        <!-- #comment-## -->
+                                                                <div class="tab-pane form-comment collapse"
+                                                                     id="collapse-{{ $comment->id }}">
+                                                                    <article>
+                                                                        <h2 class="param-title"
+                                                                            id="comments">
+                                                                            افزودن نظر
+                                                                            <span>نظر خود را در مورد محصول مطرح نمایید</span>
+                                                                        </h2>
+                                                                        @include('home.sections.errors')
+                                                                        <form
+                                                                            action="{{ route('home.comments.reply',['product'=>$product->id,'parentId'=>$comment->id]) }}"
+                                                                            method="post" class="comment">
+                                                                            @csrf
+                                                                            <input type="hidden" name="comment"
+                                                                                   value="{{ $comment->id }}">
+                                                                            <textarea class="form-control"
+                                                                                      placeholder="نظر"
+                                                                                      name="text" rows="5"></textarea>
+                                                                            <button type="submit"
+                                                                                    class="btn btn-default">
+                                                                                پاسخ به دیدگاه
+                                                                            </button>
+                                                                        </form>
+                                                                    </article>
+                                                                </div>
+                                                            </li>
+                                                        @endforeach
                                                     </ol>
                                                 </div>
                                             </article>

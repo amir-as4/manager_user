@@ -14,6 +14,7 @@ use App\Http\Controllers\Home\HomeCategoryController;
 use App\Http\Controllers\Home\HomeCommentController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\HomeProductsController;
+use App\Http\Controllers\Home\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,8 +61,13 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');
 Route::get('products/{product:slug}', [HomeProductsController::class, 'show'])->name('home.products.show');
 Route::post('comments/{product}', [HomeCommentController::class, 'store'])->name('home.comments.store');
+Route::post('comments/{product}/{parentId}', [HomeCommentController::class, 'reply'])->name('home.comments.reply');
 Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
 Route::get('/login/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
+
+Route::prefix('profile')->name('home.')->group(function () {
+    Route::get('/', [UserProfileController::class, 'index'])->name('users_profile.index');
+});
 Route::get('/test', function () {
     auth()->logout();
     return redirect('/');

@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->integer('parent_id')->nullable();
             $table->boolean('approved')->default(0);
             $table->text('text');
             $table->softDeletes();

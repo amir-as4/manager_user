@@ -2,131 +2,136 @@
 <header class="main-header default">
     <div class="container">
         <div class="row">
-            <div class="col-lg-2 col-md-3 col-sm-4 col-5">
-                <div class="logo-area default">
-                    <a href="#">
-                        <img src="{{ asset('images/logo.png') }}" alt="logo">
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-5 col-sm-8 col-7">
-                <div class="search-area default">
-                    <form action="" class="search">
-                        <input type="text" placeholder="نام کالا، برند و یا دسته مورد نظر خود را جستجو کنید…">
-                        <button type="submit"><img src="{{ asset('images/search.png') }}" alt="search img"></button>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <div class="user-login dropdown">
-                    @auth()
-                        <a class="btn btn-neutral dropdown-toggle" data-toggle="dropdown"
-                           id="navbarDropdownMenuLink1">
-                            <i class="fal fa-user fa-2x"></i>
+            @if(url(' profile'))
+                <div class="col-lg-2 col-md-3 col-sm-4 col-5">
+                    <div class="logo-area default">
+                        <a href="#">
+                            <img src="{{ asset('images/logo.png') }}" alt="logo">
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-                            <div class="dropdown-item font-weight-bold">
-                                <span class="ml-2"><i class="fal fa-user-circle fa-2x"></i>
-                                <a href="#">پروفایل</a></span>
-                            </div>
-                            <div class="dropdown-item">
-                                <a class="btn btn-info" href="{{ route('logout') }}">خروج از تاپ کالا</a>
-                            </div>
-                        </ul>
-                    @else
-                        <a class="btn btn-neutral dropdown-toggle" data-toggle="dropdown"
-                           id="navbarDropdownMenuLink1">
-                            ورود / ثبت نام
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-                            <div class="dropdown-item">
-                                <a class="btn btn-info" href="{{ route('login') }}">ورود به تاپ کالا</a>
-                            </div>
-                            <div class="dropdown-item font-weight-bold">
-                                <span>کاربر جدید هستید؟</span> <a class="register" href="{{ route('register') }}">ثبت‌نام</a>
-                            </div>
-                        </ul>
-                    @endauth
+                    </div>
                 </div>
-                <div class="cart dropdown">
-                    <a href="#" class="btn dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink1">
-                        <i class="now-ui-icons shopping_cart-simple"></i>
-                        سبد خرید
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-                        <div class="basket-header">
-                            <div class="basket-total">
-                                <span>مبلغ کل خرید:</span>
-                                <span> ۲۳,۵۰۰</span>
-                                <span> تومان</span>
-                            </div>
-                            <a href="#" class="basket-link">
-                                <span>مشاهده سبد خرید</span>
-                                <div class="basket-arrow"></div>
+            @else
+                <div class="col-lg-6 col-md-5 col-sm-8 col-7">
+                    <div class="search-area default">
+                        <form action="" class="search">
+                            <input type="text" placeholder="نام کالا، برند و یا دسته مورد نظر خود را جستجو کنید…">
+                            <button type="submit"><img src="{{ asset('images/search.png') }}" alt="search img"></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="user-login dropdown">
+                        @auth()
+                            <a class="btn btn-neutral dropdown-toggle" data-toggle="dropdown"
+                               id="navbarDropdownMenuLink1">
+                                <i class="fal fa-user fa-2x"></i>
                             </a>
-                        </div>
-                        <ul class="basket-list">
-                            <li>
-                                <a href="#" class="basket-item">
-                                    <button class="basket-item-remove"></button>
-                                    <div class="basket-item-content">
-                                        <div class="basket-item-image">
-                                            <img alt="" src="#">
-                                        </div>
-                                        <div class="basket-item-details">
-                                            <div class="basket-item-title">هندزفری بلوتوث مدل S530
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                                <div class="dropdown-item font-weight-bold">
+                                <span class="ml-2"><i class="fal fa-user-circle fa-2x"></i>
+                                <a href="{{ route('home.users_profile.index') }}">پروفایل</a></span>
+                                </div>
+                                <div class="dropdown-item">
+                                    <a class="btn btn-info" href="{{ route('logout') }}">خروج از تاپ کالا</a>
+                                </div>
+                            </ul>
+                        @else
+                            <a class="btn btn-neutral dropdown-toggle" data-toggle="dropdown"
+                               id="navbarDropdownMenuLink1">
+                                ورود / ثبت نام
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                                <div class="dropdown-item">
+                                    <a class="btn btn-info" href="{{ route('login') }}">ورود به تاپ کالا</a>
+                                </div>
+                                <div class="dropdown-item font-weight-bold">
+                                    <span>کاربر جدید هستید؟</span> <a class="register" href="{{ route('register') }}">ثبت‌نام</a>
+                                </div>
+                            </ul>
+                        @endauth
+                    </div>
+                    <div class="cart dropdown">
+                        <a href="#" class="btn dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink1">
+                            <i class="now-ui-icons shopping_cart-simple"></i>
+                            سبد خرید
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                            <div class="basket-header">
+                                <div class="basket-total">
+                                    <span>مبلغ کل خرید:</span>
+                                    <span> ۲۳,۵۰۰</span>
+                                    <span> تومان</span>
+                                </div>
+                                <a href="#" class="basket-link">
+                                    <span>مشاهده سبد خرید</span>
+                                    <div class="basket-arrow"></div>
+                                </a>
+                            </div>
+                            <ul class="basket-list">
+                                <li>
+                                    <a href="#" class="basket-item">
+                                        <button class="basket-item-remove"></button>
+                                        <div class="basket-item-content">
+                                            <div class="basket-item-image">
+                                                <img alt="" src="#">
                                             </div>
-                                            <div class="basket-item-params">
-                                                <div class="basket-item-props">
-                                                    <span> ۱ عدد</span>
-                                                    <span>رنگ مشکی</span>
+                                            <div class="basket-item-details">
+                                                <div class="basket-item-title">هندزفری بلوتوث مدل S530
+                                                </div>
+                                                <div class="basket-item-params">
+                                                    <div class="basket-item-props">
+                                                        <span> ۱ عدد</span>
+                                                        <span>رنگ مشکی</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </li>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#" class="basket-submit">ورود و ثبت سفارش</a>
                         </ul>
-                        <a href="#" class="basket-submit">ورود و ثبت سفارش</a>
-                    </ul>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
-    <nav class="main-menu">
-        <div class="container">
-            @php
-                $parentCategories=App\Models\Category::where('parent_id',0)->get()
-            @endphp
-            <ul class="list float-right">
-                @foreach($parentCategories as $parentCategory)
-                    <li class="list-item list-item-has-children mega-menu mega-menu-col-5">
-                        <a class="nav-link">{{ $parentCategory->name }}</a>
-                        <ul class="sub-menu nav">
-                            @foreach($parentCategory->children as $childCategory)
-                                <li class="list-item list-item-has-children">
-                                    <i class="now-ui-icons arrows-1_minimal-left"></i>
-                                    <a class="main-list-item nav-link"
-                                       href="{{ route('home.categories.show',['category'=>$childCategory->slug]) }}">
-                                        {{ $childCategory->name }}</a>
-                                    <ul class="sub-menu nav">
-                                        @foreach($childCategory->products as $product)
-                                            <li class="list-item">
-                                                <a class="nav-link"
-                                                   href="{{ route('home.categories.show',['category'=>$childCategory->slug]) }}">{{ App\Models\Brand::find($product->brand_id)->name }}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </li>
-                            @endforeach
-                        </ul>
+    @if(!url('profile'))
+        <nav class="main-menu">
+            <div class="container">
+                @php
+                    $parentCategories=App\Models\Category::where('parent_id',0)->get()
+                @endphp
+                <ul class="list float-right">
+                    @foreach($parentCategories as $parentCategory)
+                        <li class="list-item list-item-has-children mega-menu mega-menu-col-5">
+                            <a class="nav-link">{{ $parentCategory->name }}</a>
+                            <ul class="sub-menu nav">
+                                @foreach($parentCategory->children as $childCategory)
+                                    <li class="list-item list-item-has-children">
+                                        <i class="now-ui-icons arrows-1_minimal-left"></i>
+                                        <a class="main-list-item nav-link"
+                                           href="{{ route('home.categories.show',['category'=>$childCategory->slug]) }}">
+                                            {{ $childCategory->name }}</a>
+                                        <ul class="sub-menu nav">
+                                            @foreach($childCategory->products as $product)
+                                                <li class="list-item">
+                                                    <a class="nav-link"
+                                                       href="{{ route('home.categories.show',['category'=>$childCategory->slug]) }}">{{ App\Models\Brand::find($product->brand_id)->name }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
+                    <li class="list-item amazing-item">
+                        <a class="nav-link" href="#" target="_blank">شگفت‌انگیزها</a>
                     </li>
-                @endforeach
-                <li class="list-item amazing-item">
-                    <a class="nav-link" href="#" target="_blank">شگفت‌انگیزها</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+                </ul>
+            </div>
+        </nav>
+    @endif
 </header>
 <!-- header -->
