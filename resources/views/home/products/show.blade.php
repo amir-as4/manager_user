@@ -85,8 +85,28 @@
                                 </div>
                                 <ul class="gallery-options">
                                     <li>
-                                        <button class="add-favorites"><i class="fa fa-heart"></i></button>
-                                        <span class="tooltip-option">افزودن به علاقمندی</span>
+                                        @auth()
+                                            @if($product->checkUserWishlist(auth()->id()))
+                                                <button class="add-favorites">
+                                                    <a href="#">
+                                                        <i class="fa fa-heart favorites"></i>
+                                                        <span
+                                                            class="tooltip-option">به لیست علاقه مندی ها اضافه شده است</span></a>
+                                                </button>
+                                            @else
+                                                <button class="add-favorites">
+                                                    <a href="{{ route('home.wishlist.add',['product'=>$product->id]) }}">
+                                                        <i class="fa fa-heart"></i>
+                                                        <span class="tooltip-option">افزودن به علاقمندی</span></a>
+                                                </button>
+                                            @endif
+                                        @else
+                                            <button class="add-favorites">
+                                                <a href="{{ route('home.wishlist.add',['product'=>$product->id]) }}">
+                                                    <i class="fa fa-heart"></i>
+                                                    <span class="tooltip-option">افزودن به علاقمندی</span></a>
+                                            </button>
+                                        @endauth
                                     </li>
                                     <li>
                                         <button data-toggle="modal" data-target="#myModal"><i

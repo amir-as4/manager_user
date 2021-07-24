@@ -12,7 +12,6 @@
                 <span class="navbar-toggler-bar bar2"></span>
                 <span class="navbar-toggler-bar bar3"></span>
             </button>
-            @if(!url('profile'))
                 <div class="search-nav default">
                     <form action="">
                         <input type="text" placeholder="جستجو ...">
@@ -24,7 +23,6 @@
                         <li><a href="#"><i class="now-ui-icons shopping_basket"></i></a></li>
                     </ul>
                 </div>
-            @endif
         </div>
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <div class="logo-nav-res default text-center">

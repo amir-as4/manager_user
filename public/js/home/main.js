@@ -149,8 +149,8 @@ $(document).ready(function () {
             $("nav.header-responsive").css({ height: '60px' });
             $("nav.header-responsive .search-nav").css({ opacity: '0', visibility: 'hidden' });
         } else {
-            $("nav.header-responsive").css({ height: '110px' });
-            $("nav.header-responsive .search-nav").css({ opacity: '1', visibility: 'visible' });
+            $("nav.header-responsive").css({height: '110px'});
+            $("nav.header-responsive .search-nav").css({opacity: '1', visibility: 'visible'});
         }
     });
 
@@ -158,9 +158,9 @@ $(document).ready(function () {
 
     // favorites product
 
-    $("ul.gallery-options button.add-favorites").on("click", function () {
-        $(this).toggleClass("favorites");
-    });
+    // $("ul.gallery-options button a").on("click", function () {
+    //     $("ul.gallery-options button a span").toggleClass("favorites");
+    // });
 
     // favorites product
 

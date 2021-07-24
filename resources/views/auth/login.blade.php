@@ -60,9 +60,10 @@
                             </div>
                             <div class="form-account-row form-account-submit">
                                 <div class="parent-btn">
-                                    <a href="{{ route('provider.login',['provider'=>'google']) }}" class="dk-btn"
+                                    <a href="{{ route('provider.login',['provider'=>'google']) }}"
+                                       class="dk-btn dk-btn-info"
                                        style="background: #dd4b39">
-                                        ایجاد اکانت با گوگل
+                                        ورود با اکانت گوگل
                                         <i class="fab fa-google"></i>
                                     </a>
                                 </div>

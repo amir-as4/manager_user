@@ -15,6 +15,7 @@ use App\Http\Controllers\Home\HomeCommentController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\HomeProductsController;
 use App\Http\Controllers\Home\UserProfileController;
+use App\Http\Controllers\Home\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,13 +65,9 @@ Route::post('comments/{product}', [HomeCommentController::class, 'store'])->name
 Route::post('comments/{product}/{parentId}', [HomeCommentController::class, 'reply'])->name('home.comments.reply');
 Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
 Route::get('/login/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
+Route::get('/add-to-wishlist/{product}', [WishlistController::class, 'add'])->name('home.wishlist.add');
 
 Route::prefix('profile')->name('home.')->group(function () {
     Route::get('/', [UserProfileController::class, 'index'])->name('users_profile.index');
-});
-Route::get('/test', function () {
-    auth()->logout();
-    return redirect('/');
-//    \Cart::clear();
-//    dd(\Cart::getContent());
+    Route::get('/comments', [HomeCommentController::class, 'usersProfileIndex'])->name('comments.users_profile.index');
 });

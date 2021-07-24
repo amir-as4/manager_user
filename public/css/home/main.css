@@ -3774,6 +3774,18 @@ ul.gallery-options button {
     font-size: 24px;
 }
 
+/*ul.gallery-options  {*/
+/*    width: 51px;*/
+/*    height: 46px;*/
+/*    border-radius: 8px;*/
+/*    background-color: #fff;*/
+/*    border: 1px solid #cacaca;*/
+/*    color: #565656;*/
+/*    cursor: pointer;*/
+/*    outline: none;*/
+/*    font-size: 24px;*/
+/*}*/
+
 ul.gallery-options .tooltip-option {
     opacity: 0;
     visibility: hidden;
