@@ -88,7 +88,7 @@
                                         @auth()
                                             @if($product->checkUserWishlist(auth()->id()))
                                                 <button class="add-favorites">
-                                                    <a href="#">
+                                                    <a href="{{ route('home.wishlist.remove',['product'=>$product->id]) }}">
                                                         <i class="fa fa-heart favorites"></i>
                                                         <span
                                                             class="tooltip-option">به لیست علاقه مندی ها اضافه شده است</span></a>
@@ -107,6 +107,13 @@
                                                     <span class="tooltip-option">افزودن به علاقمندی</span></a>
                                             </button>
                                         @endauth
+                                    </li>
+                                    <li>
+                                        <button class="add-favorites">
+                                            <a href="{{ route('home.compare.add',['product'=>$product->id]) }}">
+                                                <i class="fas fa-equals"></i>
+                                                <span class="tooltip-option">مقایسه</span></a>
+                                        </button>
                                     </li>
                                     <li>
                                         <button data-toggle="modal" data-target="#myModal"><i

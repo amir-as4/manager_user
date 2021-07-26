@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ProductMetaDescriptionController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Home\CompareController;
 use App\Http\Controllers\Home\HomeCategoryController;
 use App\Http\Controllers\Home\HomeCommentController;
 use App\Http\Controllers\Home\HomeController;
@@ -66,8 +67,18 @@ Route::post('comments/{product}/{parentId}', [HomeCommentController::class, 'rep
 Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
 Route::get('/login/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
 Route::get('/add-to-wishlist/{product}', [WishlistController::class, 'add'])->name('home.wishlist.add');
+Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remove'])->name('home.wishlist.remove');
+
+Route::get('/compare', [CompareController::class, 'index'])->name('home.compare.index');
+Route::get('/add-to-compare/{product}', [CompareController::class, 'add'])->name('home.compare.add');
 
 Route::prefix('profile')->name('home.')->group(function () {
     Route::get('/', [UserProfileController::class, 'index'])->name('users_profile.index');
     Route::get('/comments', [HomeCommentController::class, 'usersProfileIndex'])->name('comments.users_profile.index');
+    Route::get('/wishlist', [WishlistController::class, 'usersProfileIndex'])->name('wishlist.users_profile.index');
+});
+Route::get('/test', function () {
+
+    dd( session()->get('compareProducts') );
+
 });
